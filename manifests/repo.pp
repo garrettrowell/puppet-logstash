@@ -34,25 +34,46 @@ class logstash::repo {
   case $::osfamily {
     'Debian': {
       if !defined(Class['apt']) {
-        class { 'apt': }
+        class { '::apt': }
       }
 
-      apt::source { 'logstash':
-        location    => "http://packages.elasticsearch.org/logstash/${logstash::repo_version}/debian",
-        release     => 'stable',
-        repos       => 'main',
-        key         => '46095ACC8548582C1A2699A9D27D666CD88E42B4',
-        key_server  => 'pgp.mit.edu',
-        include_src => false,
+      if versioncmp("${logstash::repo_version}",'1.5') > 0 {
+        apt::source { 'logstash':
+          location    => "http://packages.elastic.co/logstash/${logstash::repo_version}/debian",
+          release     => 'stable',
+          repos       => 'main',
+          key         => '46095ACC8548582C1A2699A9D27D666CD88E42B4',
+          key_server  => 'pgp.mit.edu',
+          include_src => false,
+        }
+      } else {
+        apt::source { 'logstash':
+          location    => "http://packages.elasticsearch.org/logstash/${logstash::repo_version}/debian",
+          release     => 'stable',
+          repos       => 'main',
+          key         => '46095ACC8548582C1A2699A9D27D666CD88E42B4',
+          key_server  => 'pgp.mit.edu',
+          include_src => false,
+        }
       }
     }
     'RedHat': {
-      yumrepo { 'logstash':
-        descr    => 'Logstash Centos Repo',
-        baseurl  => "http://packages.elasticsearch.org/logstash/${logstash::repo_version}/centos",
-        gpgcheck => 1,
-        gpgkey   => 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch',
-        enabled  => 1,
+      if versioncmp("${logstash::repo_version}",'1.5') > 0 {
+        yumrepo { 'logstash':
+          descr    => 'Logstash Centos Repo',
+          baseurl  => "http://packages.elastic.co/logstash/${logstash::repo_version}/centos",
+          gpgcheck => 1,
+          gpgkey   => 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch',
+          enabled  => 1,
+        }
+      } else {
+        yumrepo { 'logstash':
+          descr    => 'Logstash Centos Repo',
+          baseurl  => "http://packages.elasticsearch.org/logstash/${logstash::repo_version}/centos",
+          gpgcheck => 1,
+          gpgkey   => 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch',
+          enabled  => 1,
+        }
       }
     }
     'Suse' : {
