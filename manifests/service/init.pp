@@ -97,7 +97,7 @@ define logstash::service::init{
         group   => 'root',
         mode    => '0644',
         before  => Service[$name],
-        notify  => $notify_service
+        notify  => $notify_service,
       }
 
     }
@@ -112,7 +112,7 @@ define logstash::service::init{
         group   => 'root',
         mode    => '0755',
         before  => Service[$name],
-        notify  => $notify_service
+        notify  => $notify_service,
       }
 
     }
@@ -137,7 +137,7 @@ define logstash::service::init{
     hasstatus  => $logstash::params::service_hasstatus,
     hasrestart => $logstash::params::service_hasrestart,
     pattern    => $logstash::params::service_pattern,
-    provider   => $service_provider
+    provider   => $service_provider,
   }
 
 }

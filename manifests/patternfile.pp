@@ -1,6 +1,7 @@
 # == Define: logstash::patternfile
 #
-# This define allows you to transport custom pattern files to the Logstash instance
+# This define allows you to transport custom pattern files to the
+# Logstash instance
 #
 # All default values are defined in the logstashc::params class.
 #
@@ -14,7 +15,8 @@
 #   This variable is required
 #
 # [*filename*]
-#   if you would like the actual file name to be different then the source file name
+#   if you would like the actual file name to be different then
+#   the source file name
 #   Value type is string
 #   This variable is optional
 #

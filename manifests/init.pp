@@ -87,7 +87,8 @@
 #   Purge package directory on removal
 #
 # [*package_dl_timeout*]
-#   For http,https and ftp downloads you can set howlong the exec resource may take.
+#   For http,https and ftp downloads you can set howlong the exec resource
+#   may take.
 #   Defaults to: 600 seconds
 #
 # [*logstash_user*]
@@ -100,7 +101,8 @@
 #   Purge the config directory for any unmanaged files
 #
 # [*service_provider*]
-#   Service provider to use. By Default when a single service provider is possibe that one is selected.
+#   Service provider to use. By Default when a single service provider is
+#   possibe that one is selected.
 #
 # [*init_defaults*]
 #   Defaults file content in hash representation
@@ -122,7 +124,8 @@
 #   Enable repo management by enabling our official repositories
 #
 # [*repo_version*]
-#   Our repositories are versioned per major version (1.3, 1.4) select here which version you want
+#   Our repositories are versioned per major version (1.3, 1.4) select here
+#   which version you want
 #
 # [*configdir*]
 #   Path to directory containing the logstash configuration.
@@ -229,17 +232,17 @@ class logstash(
   #### Manage actions
 
   # package(s)
-  class { 'logstash::package': }
+  class { '::logstash::package': }
 
   # configuration
-  class { 'logstash::config': }
+  class { '::logstash::config': }
 
   # service(s)
-  class { 'logstash::service': }
+  class { '::logstash::service': }
 
   if $java_install == true {
     # Install java
-    class { 'logstash::java': }
+    class { '::logstash::java': }
 
     # ensure we first install java and then manage the service
     Anchor['logstash::begin']
@@ -253,7 +256,7 @@ class logstash(
       # use anchor for ordering
 
       # Set up repositories
-      class { 'logstash::repo': }
+      class { '::logstash::repo': }
 
       # Ensure that we set up the repositories before trying to install
       # the packages
@@ -268,8 +271,8 @@ class logstash(
         stage { $repo_stage:  before => Stage['main'] }
       }
 
-      class { 'logstash::repo':
-        stage => $repo_stage
+      class { '::logstash::repo':
+        stage => $repo_stage,
       }
     }
   }

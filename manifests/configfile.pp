@@ -11,7 +11,8 @@
 #  Supply a puppet file resource to be used for the config file.
 #
 # [*order*]
-#  The order number controls in which sequence the config file fragments are concatenated.
+#  The order number controls in which sequence the config file fragments
+#  are concatenated.
 #
 # === Examples
 #
@@ -59,7 +60,7 @@ define logstash::configfile(
     content => $config_content,
     source  => $source,
     order   => $order,
-    before  => [ File_concat['ls-config'] ]
+    before  => [ File_concat['ls-config'] ],
   }
 
 }
